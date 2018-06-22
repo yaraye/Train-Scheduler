@@ -1,0 +1,43 @@
+.jumbotron{
+    background: rgb(168, 99, 9);
+  
+}
+
+/* 
+.w-container{ 
+    width: 960px;
+    margin-left: 10%;
+    margin-left: 10%;
+    margin-top: 5%;
+    background: pink;
+   
+} */
+h2,
+h3{
+    color:white;
+   
+}
+.main-container,
+.main-container1{
+    border: 1px solid rgb(12, 121, 158);
+    padding: 5px;
+    /* width: 960px; */
+  
+    
+   
+  
+}
+.main-container1{
+    margin-top: 10px;
+}
+h4{
+    background: rgb(12, 121, 158);
+    padding: 5px;
+    margin-top: 0;
+    /* width: 100%; */
+}
+/* .table{
+    margin: 10px;
+  /
+     margin-right: 15px;
+}  */
