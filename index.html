@@ -14,8 +14,8 @@
 <!-- firebase -->
   <script src="https://www.gstatic.com/firebasejs/4.12.0/firebase.js"></script>
   <!-- momentjs -->
-  <!-- <script src="https://cdn.jsdelivr.net/momentjs/2.12.0/moment.min.js"></script> -->
-  <script src="moment.js"></script>
+  <script src="https://cdn.jsdelivr.net/momentjs/2.12.0/moment.min.js"></script>
+ <!-- // <script src="moment.js"></script> -->
 </head>
 <body>
 <div class="w-container">
@@ -29,14 +29,14 @@
         <div class="main-jumbotron">
             <h4>Current Train Schedule</h4>            
         </div>
-      <table class="table">
+      <table class="table" id="table_containter">
         <thead>
           <tr>
-            <th scope="col">Train Name</th>
-            <th scope="col">Destination</th>
-            <th scope="col">Frequency(min)</th>
-            <th scope="col">Next Arrival</th>
-            <th scope="col">Minutes Away</th>
+            <th id"nameDisplay" scope="col">Train Name</th>
+            <th id="desDisplay" scope="col">Destination</th>
+            <th id="freDisplay" scope="col">Frequency(min)</th>
+            <th id="arrivalDisplay" scope="col" id="nextArrival">Next Arrival</th>
+            <th id="minDisplay"scope="col">Minutes Away</th>
           </tr>
         </thead>
         </table>
@@ -46,7 +46,7 @@
                 <div class="main-jumbotron">
                         <h4>Add Train</h4>            
                     </div>
-                    <form>
+                    <form id="tableForm">
                             <div class="form-group">
                               <label id="trainName">Train Name</label>
                               <input type="text" class="form-control" id="trainNameInput">
@@ -65,7 +65,7 @@
                                 <label for="frequency">Frequency(min)</label>
                                 <input type="text"  class="form-control"  id="frequencyInput">
                             </div>                  
-                            <button type="submit" class="btn btn-primary" id="submit-btn">Submit</button>
+                            <button type="submit" class="btn btn-primary" id="addTrain">Submit</button>
                           </form>
         </div>
     </div>  
