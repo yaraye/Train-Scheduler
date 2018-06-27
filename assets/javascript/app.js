@@ -14,57 +14,62 @@ firebase.initializeApp(config);
 
 var database = firebase.database();
 
-var trainName="";
-var destination="";
-var trainTime=0;
-var frequency=0;
-
 // 2. Button for adding Employees
 $("#addTrain").on("click", function(event) {
   event.preventDefault();
 
   //user input--
-  trainName=$('#trainNameInput').val().trim();
-  destination=$('#destinationInput').val().trim();
-  trainTime= moment($('#timeInput').val().trim(),"HH:mm").format('HH:mm');
-  frequency=$('#frequencyInput').val().trim();
+  var trainName=$('#trainNameInput').val().trim();
+  var destination=$('#destinationInput').val().trim();
+  var trainTime= moment($('#timeInput').val().trim(),"HH:mm").format('HH:mm');
+  var frequency=$('#frequencyInput').val().trim();
+
 
  // Creates local "temporary" object for holding employee data
  database.ref().push ({
-  TrainName: trainName,
+  Name: trainName,
   Destination: destination,
-  TrainTime: trainTime,
-  Frequency: frequency
+  Frequency: frequency,
+  TrainTime: trainTime
+});
+  //empty the input boxes
+$('#trainNameInput').val("");
+$('#destinationInput').val("");
+$('#timeInput').val("");
+$('#frequencyInput').val(""); 
+
 });
 
-//   //empty the input boxes
-// $('#trainNameInput').val("");
-// $('#destinationInput').val("");
-// $('#timeInput').val("");
-// $('#frequencyInput').val(""); 
+database.ref().on("child_added", function(childSnapshot, prevChildKey){
+
+  console.log(childSnapshot.val());
+
+  // assign firebase variables to snapshots.
+  var trainName = childSnapshot.val().Name;
+  var destination = childSnapshot.val().Destination;
+  var frequency= childSnapshot.val().Frequency;
+  var Time = childSnapshot.val().TrainTime;
+
+   // First Time (pushed back 1 year to make sure it comes before current time)
+   var firstTimeConverted = moment(Time, "HH:mm").subtract(10, "years");
+  // Current Time
+  var currentTime = moment();
+  // Difference between the times
+  var diffTime = moment().diff(moment(firstTimeConverted), "minutes");
+  var timeRemainder = diffTime % frequency ;
+  var minutes = frequency - timeRemainder;
+  var nextTrainArrival = moment().add(minutes, "m").format("HH:mm A"); 
+  
+  // Append train info to table on page
+  $("#table_containter").append("<tr><td>" + trainName + "</td><td>"+ destination + "</td><td>" + 
+  frequency + " mins" + "</td><td>" + nextTrainArrival + "</td><td>" + minutes + "</td></tr>");
 
 });
 
 
 
-database.ref().on("child_added", function(snapshot)
-{
-console.log(snapshot.val().TrainName);
- // var tablerow =  $("<tr>");
-  //   var tablecell1 = $("<td '#nameDisplay'>" + snapshot.val(sv.trainName) + "</td>");
-  //    var tablecell2 = $("<td>" + snapshot.val(sv.role) + "</td>");
-  //    var tablecell3 = $("<td>" + snapshot.val(sv.startDate) + "</td>");
-  //    var tablecell4 = $("<td>" + snapshot.val(sv.monthlyRate) + "</td>");
-   //  tablerow.append(tablecell1);
 
 
-      var newRow = $("<tr>").append(
-         $("<td>").text(snapshot.val().TrainName),
-          $("<td>").text(snapshot.val().Destination),
-         $("<td>").text(snapshot.val().TrainTime),
-        $("<td>").text(snapshot.val().Frequency)
-     
-      );
-   
-    $("#table_containter").append(newRow);
-});
+
+
+
