@@ -54,6 +54,7 @@ database.ref().on("child_added", function(childSnapshot, prevChildKey){
    var firstTimeConverted = moment(Time, "HH:mm").subtract(10, "years");
   // Current Time
   var currentTime = moment();
+  console.log(currentTime);
   // Difference between the times
   var diffTime = moment().diff(moment(firstTimeConverted), "minutes");
   var timeRemainder = diffTime % frequency ;
@@ -65,6 +66,20 @@ database.ref().on("child_added", function(childSnapshot, prevChildKey){
   frequency + " mins" + "</td><td>" + nextTrainArrival + "</td><td>" + minutes + "</td></tr>");
 
 });
+var myIndex = 0;
+carousel();
+
+function carousel() {
+    var i;
+    var x = document.getElementsByClassName("mySlides");
+    for (i = 0; i < x.length; i++) {
+       x[i].style.display = "none";  
+    }
+    myIndex++;
+    if (myIndex > x.length) {myIndex = 1}    
+    x[myIndex-1].style.display = "block";  
+    setTimeout(carousel, 2000); // Change image every 2 seconds
+}
 
 
 
