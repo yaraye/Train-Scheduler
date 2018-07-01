@@ -14,7 +14,7 @@ firebase.initializeApp(config);
 
 var database = firebase.database();
 
-// 2. Button for adding Employees
+// 2. Button for adding Train data
 $("#addTrain").on("click", function(event) {
   event.preventDefault();
 
@@ -25,7 +25,7 @@ $("#addTrain").on("click", function(event) {
   var frequency=$('#frequencyInput').val().trim();
 
 
- // Creates local "temporary" object for holding employee data
+ // Creates local "temporary" object for holding train data
  database.ref().push ({
   Name: trainName,
   Destination: destination,
